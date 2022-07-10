@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form th:action="@{/send}" th:object="${person}" th:method="post">
+    <label for="name">Имя</label>
+    <input id="name" type="text" th:field="*{name}">
+    <label for="lastName">Фамилия</label>
+    <input id="lastName" type="text" th:field="*{lastName}">
+    <label for="age">Возраст</label>
+    <input id="age" type="number" th:field="*{age}">
+    <button type="submit">Отправить</button>
+</form>
+</body>
+</html>

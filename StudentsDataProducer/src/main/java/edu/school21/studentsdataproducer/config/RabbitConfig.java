@@ -34,20 +34,6 @@ public class RabbitConfig {
         return new RabbitTemplate(connectionFactory());
     }
 
-    @Bean
-    Queue social_food() {
-        return new Queue("social_food", false);
-    }
-
-    @Bean
-    Queue financial_assistance() {
-        return new Queue("financial_assistance", false);
-    }
-
-    @Bean
-    Queue transportation_costs() {
-        return new Queue("transportation_costs", false);
-    }
 
     @Bean
     FanoutExchange fanoutExchange() {
@@ -67,5 +53,43 @@ public class RabbitConfig {
     @Bean
     Binding transportation_costs_binding() {
         return BindingBuilder.bind(transportation_costs()).to(fanoutExchange());
+    }
+
+    @Bean
+    Queue social_food() {
+        return new Queue("social_food", false);
+    }
+
+    @Bean
+    Queue financial_assistance() {
+        return new Queue("financial_assistance", false);
+    }
+
+    @Bean
+    Queue transportation_costs() {
+        return new Queue("transportation_costs", false);
+    }
+
+    @Bean
+    TopicExchange topicExchange() { return new TopicExchange("GRANT_EXCHANGE"); }
+
+    @Bean
+    Binding grant_other_documents_binding() {
+        return BindingBuilder.bind(grant_other_documents()).to(topicExchange()).with("grant.#");
+    }
+
+    @Bean
+    Binding grant_contracts_binding() {
+        return BindingBuilder.bind(grant_contracts()).to(topicExchange()).with("grant.1.*");
+    }
+
+    @Bean
+    Queue grant_other_documents() {
+        return new Queue("grant_other_documents", false);
+    }
+
+    @Bean
+    Queue grant_contracts() {
+        return new Queue("grant_contracts", false);
     }
 }

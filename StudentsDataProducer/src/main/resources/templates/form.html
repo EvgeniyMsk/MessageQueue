@@ -1,18 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>MessageQueue Example</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-<form th:action="@{/send}" th:object="${person}" th:method="post">
-    <label for="name">Имя</label>
-    <input id="name" type="text" th:field="*{name}">
-    <label for="lastName">Фамилия</label>
-    <input id="lastName" type="text" th:field="*{lastName}">
-    <label for="age">Возраст</label>
-    <input id="age" type="number" th:field="*{age}">
-    <button type="submit">Отправить</button>
-</form>
+<div class="container">
+    <h1>Информация о студенте</h1>
+    <form th:action="@{/send}" th:object="${person}" th:method="post">
+        <div>
+        <label for="name">Имя</label>
+        <input id="name" type="text" th:field="*{name}">
+        </div>
+        <div>
+        <label for="lastName">Фамилия</label>
+        <input id="lastName" type="text" th:field="*{lastName}">
+        </div>
+        <div>
+        <label for="age">Возраст</label>
+        <input id="age" type="number" th:field="*{age}" value="18">
+        </div>
+        <div>
+        <label for="course">Курс</label>
+        <input id="course" type="number" th:field="*{course}">
+        </div>
+        <button class="btn" type="submit">Отправить</button>
+    </form>
+</div>
+
 </body>
 </html>

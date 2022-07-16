@@ -22,7 +22,7 @@ public class MainController {
 
     @GetMapping("/form")
     public String form(Model model) {
-        model.addAttribute("person", new Person());
+        model.addAttribute("person", new Person("Иванов", "Иван", 18, 2));
         return "form";
     }
 
@@ -30,6 +30,10 @@ public class MainController {
     public String send(@ModelAttribute("person") Person person) {
         rabbitTemplate.setExchange("SOCIAL_ASSISTANCE_EXCHANGE");
         rabbitTemplate.convertAndSend(new Gson().toJson(person));
+        rabbitTemplate.setExchange("GRANT_EXCHANGE");
+        rabbitTemplate.convertAndSend(String.format("grant.%d.%s", person.getCourse(), "consent"), new Gson().toJson(person));
+        rabbitTemplate.convertAndSend(String.format("grant.%d.%s", person.getCourse(), "grant"), new Gson().toJson(person));
+        rabbitTemplate.convertAndSend(String.format("grant.%d.%s", person.getCourse(), "guarantee_letter"), new Gson().toJson(person));
         return "form";
     }
 }
